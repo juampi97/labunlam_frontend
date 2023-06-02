@@ -1,0 +1,63 @@
+a {
+  color: black !important;
+  padding: 0 !important;
+  text-decoration: none !important;
+}
+
+.navbar_logo {
+  width: 50px;
+  height: 50px;
+}
+
+.nav_text {
+  padding: 0 5px !important;
+}
+
+.nav_text_drop {
+  padding: 5px 0 !important;
+}
+
+.main_index {
+  width: 100%;
+  height: 93vh;
+}
+
+.detail-img {
+  width: 100%;
+  height: 100%;
+}
+
+.spinnerLoading {
+  padding-left: 50%;
+  padding-top: 40vh;
+}
+
+.item_card_proyectores {
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.item_card_proyectores_aditionals {
+  height: 125px;
+}
+
+.item_card_notebooks {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+.item_card_notebooks_descripcion {
+  height: 200px;
+}
+
+.item_card_instrumentos {
+  min-height: 240px;
+}
+
+.item_card_instrumentos_caracteristicas {
+  height: 130px;
+}
