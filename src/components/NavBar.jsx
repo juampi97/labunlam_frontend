@@ -25,16 +25,16 @@ function NavBar() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
               <Link to={"/"}>
-                <Nav.Item className="nav_text">Inicio</Nav.Item>
+                <Nav.Item className="nav_text my-2">Inicio</Nav.Item>
               </Link>
               <Link to={"/proyectores"}>
-                <Nav.Item className="nav_text">Proyectores</Nav.Item>
+                <Nav.Item className="nav_text my-2">Proyectores</Nav.Item>
               </Link>
               <Link to={"/notebooks"}>
-                <Nav.Item className="nav_text">Notebooks</Nav.Item>
+                <Nav.Item className="nav_text my-2">Notebooks</Nav.Item>
               </Link>
               <Link to={"/instrumentos"}>
-                <Nav.Item className="nav_text">Instrumentos</Nav.Item>
+                <Nav.Item className="nav_text my-2">Instrumentos</Nav.Item>
               </Link>
             </Nav>
             <CartWidget />
