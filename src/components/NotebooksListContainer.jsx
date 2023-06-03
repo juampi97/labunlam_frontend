@@ -7,15 +7,18 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Spinner from 'react-bootstrap/Spinner';
 
 const NotebooksListContainer = () => {
   const [notebooks, setNotebooks] = useState([]);
+  const [productosLoaded, setProductosLoaded] = useState(false);
 
   useEffect(() => {
     const fetchAllnotebooks = async () => {
       try {
         const res = await axios.get("https://labunlam-backend.vercel.app/api/notebooks");
         setNotebooks(res.data);
+        setProductosLoaded(true);
       } catch (err) {
         console.log(err);
       }
@@ -85,6 +88,18 @@ const NotebooksListContainer = () => {
     }
     setvectorCodRec(codrec);
   }, [marca, notebooks]);
+
+  if (!productosLoaded) {
+    return (
+      <>
+        <Container className="mt-5 mb-5">
+          <Row className="justify-content-center">
+            <Spinner animation="border" variant="success" />;
+          </Row>
+        </Container>
+      </>
+    );
+  }
 
   return (
     <>

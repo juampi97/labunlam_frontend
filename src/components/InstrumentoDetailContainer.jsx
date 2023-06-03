@@ -6,17 +6,22 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import InstrumentoDetail from "./InstrumentoDetail";
+import Spinner from "react-bootstrap/Spinner";
+
 
 const InstrumentoDetailContainer = () => {
   const { cod_rec } = useParams();
 
   const [instrumentos, setInstrumentos] = useState([]);
+  const [productosLoaded, setProductosLoaded] = useState(false);
+
 
   useEffect(() => {
     const fetchAllInstrumentos = async () => {
       try {
-        const res = await axios.get("https://labunlam-backend.vercel.app/instrumentos");
+        const res = await axios.get("https://labunlam-backend.vercel.app/api/instruments");
         setInstrumentos(res.data);
+        setProductosLoaded(true);
       } catch (err) {
         console.log(err);
       }
@@ -29,6 +34,17 @@ const InstrumentoDetailContainer = () => {
     return instrumento.cod_rec === cod_rec;
   });
 
+  if (!productosLoaded) {
+    return (
+      <>
+        <Container className="mt-5 mb-5">
+          <Row className="justify-content-center">
+            <Spinner animation="border" variant="success" />;
+          </Row>
+        </Container>
+      </>
+    );
+  }
 
   return (
     <>

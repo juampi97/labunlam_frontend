@@ -7,15 +7,18 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Spinner from 'react-bootstrap/Spinner';
 
 const InstrumentosListContainer = () => {
   const [instrumentos, setInstrumentos] = useState([]);
+  const [productosLoaded, setProductosLoaded] = useState(false);
 
   useEffect(() => {
     const fetchAllInstrumentos = async () => {
       try {
         const res = await axios.get("https://labunlam-backend.vercel.app/api/instruments");
         setInstrumentos(res.data);
+        setProductosLoaded(true);
       } catch (err) {
         console.log(err);
       }
@@ -155,6 +158,17 @@ const InstrumentosListContainer = () => {
 
     }, [descripcion, marca, codrec, instrumentos]);
 
+    if (!productosLoaded) {
+      return (
+        <>
+          <Container className="mt-5 mb-5">
+            <Row className="justify-content-center">
+              <Spinner animation="border" variant="success" />;
+            </Row>
+          </Container>
+        </>
+      );
+    }
 
   return (
     <>
@@ -170,7 +184,7 @@ const InstrumentosListContainer = () => {
               </Form.Select>
             </Form.Group>
           </Col>
-          <Col xs={10} md={4} lg={4}>
+          {/* <Col xs={10} md={4} lg={4}>
             <Form.Group className="mb-3">
               <Form.Select onChange={handleChangeMarca} id="selectMarca">
                 <option value="">Marca</option>
@@ -199,7 +213,7 @@ const InstrumentosListContainer = () => {
                 })}
               </Form.Select>
             </Form.Group>
-          </Col>
+          </Col> */}
           <Col xs={3} md={1} className="mb-3 ms-2 justify-items-center">
             <Button onClick={resetFilter} variant="danger">Reset</Button>
           </Col>

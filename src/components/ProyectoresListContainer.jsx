@@ -7,15 +7,20 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Spinner from "react-bootstrap/Spinner";
 
 const ProyectoresListContainer = () => {
   const [proyectores, setProyectores] = useState([]);
+  const [productosLoaded, setProductosLoaded] = useState(false);
 
   useEffect(() => {
     const fetchAllProyectores = async () => {
       try {
-        const res = await axios.get("https://labunlam-backend.vercel.app/api/proyectores");
+        const res = await axios.get(
+          "https://labunlam-backend.vercel.app/api/proyectores"
+        );
         setProyectores(res.data);
+        setProductosLoaded(true);
       } catch (err) {
         console.log(err);
       }
@@ -28,7 +33,6 @@ const ProyectoresListContainer = () => {
   const [vectorMarca, setVectorMarca] = useState([]);
 
   const getMarca = () => {
-    console.log(proyectores);
     let marcas = [];
     proyectores.map((proyector) => {
       if (!marcas.includes(proyector.marca)) {
@@ -88,6 +92,18 @@ const ProyectoresListContainer = () => {
     }
     setvectorCodRec(codrec);
   }, [marca, proyectores]);
+
+  if (!productosLoaded) {
+    return (
+      <>
+        <Container className="mt-5 mb-5">
+          <Row className="justify-content-center">
+            <Spinner animation="border" variant="success" />;
+          </Row>
+        </Container>
+      </>
+    );
+  }
 
   return (
     <>
