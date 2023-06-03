@@ -39,7 +39,7 @@ const InstrumentoDetailContainer = () => {
       <>
         <Container className="mt-5 mb-5">
           <Row className="justify-content-center">
-            <Spinner animation="border" variant="success" />;
+            <Spinner animation="border" variant="success" />
           </Row>
         </Container>
       </>
