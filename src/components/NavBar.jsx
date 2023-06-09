@@ -36,6 +36,9 @@ function NavBar() {
               <Link to={"/instrumentos"}>
                 <Nav.Item className="nav_text my-2">Instrumentos</Nav.Item>
               </Link>
+              <Link to={"/descargas"}>
+                <Nav.Item className="nav_text my-2">Descargas</Nav.Item>
+              </Link>
             </Nav>
             <CartWidget />
           </Navbar.Collapse>
