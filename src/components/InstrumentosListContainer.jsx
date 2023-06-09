@@ -7,7 +7,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Spinner from 'react-bootstrap/Spinner';
+import Spinner from "react-bootstrap/Spinner";
 
 const InstrumentosListContainer = () => {
   const [instrumentos, setInstrumentos] = useState([]);
@@ -16,7 +16,9 @@ const InstrumentosListContainer = () => {
   useEffect(() => {
     const fetchAllInstrumentos = async () => {
       try {
-        const res = await axios.get("https://labunlam-backend.vercel.app/api/instruments");
+        const res = await axios.get(
+          "https://labunlam-backend.vercel.app/api/instruments"
+        );
         setInstrumentos(res.data);
         setProductosLoaded(true);
       } catch (err) {
@@ -71,104 +73,149 @@ const InstrumentosListContainer = () => {
     setAB_rango(document.getElementById("selectAB").value);
   }
 
-  function resetFilter(){
+  function resetFilter() {
     setDescripcion("");
-    document.getElementById("selectDescripcion").value="";
+    document.getElementById("selectDescripcion").value = "";
     setMarca("");
-    document.getElementById("selectMarca").value="";
+    document.getElementById("selectMarca").value = "";
     setCodrec("");
-    document.getElementById("selectModelo").value="";
+    document.getElementById("selectModelo").value = "";
     setAB_rango("");
-    document.getElementById("selectAB").value="";
+    document.getElementById("selectAB").value = "";
   }
-  
+
   // Opciones de filtrado
 
-    // Codrec segun la marca seleccionada
-    const [vectorMarcaList, setvectorMarcaList] = useState([]);
-    const [vectorModeloList, setvectorModeloList] = useState([]);
-    const [vectorABRango, setvectorABRango] = useState([]);
+  // Codrec segun la marca seleccionada
+  const [vectorMarcaList, setvectorMarcaList] = useState([]);
+  const [vectorModeloList, setvectorModeloList] = useState([]);
+  const [vectorABRango, setvectorABRango] = useState([]);
 
-    const getMarca = () => {
-      let marca = [];
+  const getMarca = () => {
+    let marca = [];
+    instrumentos.map((instrument) => {
+      if (
+        instrument.descripcion === descripcion &&
+        !marca.includes(instrument.marca)
+      ) {
+        marca.push(instrument.marca);
+      }
+    });
+    return marca;
+  };
+
+  const getModelo = () => {
+    let modelo = [];
+    instrumentos.map((instrument) => {
+      if (
+        instrument.descripcion === descripcion &&
+        !modelo.includes(instrument.modelo)
+      ) {
+        modelo.push(instrument.modelo);
+      }
+    });
+    return modelo;
+  };
+
+  const getAB = () => {
+    let ab = [];
+    instrumentos.map((instrument) => {
+      if (
+        instrument.descripcion === descripcion &&
+        !ab.includes(instrument.ab_rango)
+      ) {
+        ab.push(instrument.ab_rango);
+      }
+    });
+    return ab;
+  };
+
+  useEffect(() => {
+    let marca = [];
+    if (descripcion === "") {
       instrumentos.map((instrument) => {
-        if (instrument.descripcion === descripcion && !marca.includes(instrument.marca)) {
+        if (!marca.includes(instrument.marca)) {
           marca.push(instrument.marca);
         }
       });
-      return marca;
-    };
+    } else {
+      marca = getMarca();
+    }
+    setvectorMarcaList(marca);
 
-    const getModelo = () => {
-      let modelo = [];
+    let modelo = [];
+    if (descripcion === "") {
       instrumentos.map((instrument) => {
-        if (instrument.descripcion === descripcion && !modelo.includes(instrument.modelo)) {
+        if (!modelo.includes(instrument.modelo)) {
           modelo.push(instrument.modelo);
         }
       });
-      return modelo;
-    };
+    } else {
+      modelo = getModelo();
+    }
+    setvectorModeloList(modelo);
 
-    const getAB = () => {
-      let ab = [];
+    let ab = [];
+    if (descripcion === "") {
       instrumentos.map((instrument) => {
-        if (instrument.descripcion === descripcion && !ab.includes(instrument.ab_rango)) {
+        if (!ab.includes(instrument.ab_rango)) {
           ab.push(instrument.ab_rango);
         }
       });
-      return ab;
-    };
-  
-    useEffect(() => {
-      let marca = [];
-      if (descripcion === "") {
-        instrumentos.map((instrument) => {
-          if (!marca.includes(instrument.marca)) {
-            marca.push(instrument.marca);
-          }
-        });
-      } else {
-        marca = getMarca();
-      }
-      setvectorMarcaList(marca);
-
-      let modelo = [];
-      if (descripcion === "") {
-        instrumentos.map((instrument) => {
-          if (!modelo.includes(instrument.modelo)) {
-            modelo.push(instrument.modelo);
-          }
-        });
-      } else {
-        modelo = getModelo();
-      }
-      setvectorModeloList(modelo);
-
-      let ab = [];
-      if (descripcion === "") {
-        instrumentos.map((instrument) => {
-          if (!ab.includes(instrument.ab_rango)) {
-            ab.push(instrument.ab_rango);
-          }
-        });
-      } else {
-        ab = getAB();
-      }
-      setvectorABRango(ab);
-
-    }, [descripcion, marca, codrec, instrumentos]);
-
-    if (!productosLoaded) {
-      return (
-        <>
-          <Container className="mt-5 mb-5">
-            <Row className="justify-content-center">
-              <Spinner animation="border" variant="success" />
-            </Row>
-          </Container>
-        </>
-      );
+    } else {
+      ab = getAB();
     }
+    setvectorABRango(ab);
+  }, [descripcion, marca, codrec, instrumentos]);
+
+  if (!productosLoaded) {
+    return (
+      <>
+        <Container className="mt-5 mb-5">
+          <Row className="justify-content-center">
+            <Spinner animation="border" variant="success" />
+          </Row>
+        </Container>
+      </>
+    );
+  }
+  const generateArrayCantidades = (data) => {
+    let products = [];
+
+    data.forEach((element) => {
+      let item = {
+        id: null,
+        tipo: element.tipo,
+        descripcion: element.descripcion,
+        marca: element.marca,
+        modelo: element.modelo,
+        filtro: element.filtro,
+        cod_manual: element.cod_manual,
+        especificaciones: element.especificaciones,
+        estado: element.estado,
+        ubicacion: element.ubicacion,
+        adicionales: element.adicionales,
+        cantidad: 1,
+      };
+      if (products.find((prod) => prod.modelo == item.modelo)) {
+        let producto = products.find((prod) => prod.modelo == item.modelo);
+        producto.cantidad += 1;
+      } else {
+        let itemId;
+        if (products.length === 0) {
+          item.id = 1;
+        } else {
+          itemId = products[products.length - 1].id + 1;
+          item.id = itemId;
+        }
+        products.push(item);
+      }
+    });
+    return products;
+  };
+
+  let instrumentosAgrupados = generateArrayCantidades(instrumentos);
+  console.log(instrumentosAgrupados);
 
   return (
     <>
@@ -176,7 +223,10 @@ const InstrumentosListContainer = () => {
         <Row className="d-flex justify-content-center align-items-center">
           <Col xs={10} md={4} lg={4}>
             <Form.Group className="mb-3">
-              <Form.Select onChange={handleChangeDescripcion} id="selectDescripcion">
+              <Form.Select
+                onChange={handleChangeDescripcion}
+                id="selectDescripcion"
+              >
                 <option value="">Descripcion</option>
                 {vectorDescripcion.map((descripciones) => {
                   return <option value={descripciones}>{descripciones}</option>;
@@ -215,11 +265,19 @@ const InstrumentosListContainer = () => {
             </Form.Group>
           </Col> */}
           <Col xs={3} md={1} className="mb-3 ms-2 justify-items-center">
-            <Button onClick={resetFilter} variant="danger">Reset</Button>
+            <Button onClick={resetFilter} variant="danger">
+              Reset
+            </Button>
           </Col>
         </Row>
       </Container>
-      <InstrumentosList instrumentos={instrumentos} descripcion={descripcion} marca={marca} codrec={codrec} ab_rango={ab_rango} />
+      <InstrumentosList
+        instrumentos={instrumentosAgrupados}
+        descripcion={descripcion}
+        marca={marca}
+        codrec={codrec}
+        ab_rango={ab_rango}
+      />
     </>
   );
 };
