@@ -271,13 +271,19 @@ const InstrumentosListContainer = () => {
           </Col>
         </Row>
       </Container>
-      <InstrumentosList
-        instrumentos={instrumentosAgrupados}
-        descripcion={descripcion}
-        marca={marca}
-        codrec={codrec}
-        ab_rango={ab_rango}
-      />
+      <Container>
+        <Row className="d-flex justify-content-center align-items-center">
+          <Col xs={10} md={10} lg={10}>
+            <InstrumentosList
+              instrumentos={instrumentosAgrupados}
+              descripcion={descripcion}
+              marca={marca}
+              codrec={codrec}
+              ab_rango={ab_rango}
+            />
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 };

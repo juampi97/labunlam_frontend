@@ -10,7 +10,7 @@ import Spinner from "react-bootstrap/Spinner";
 
 
 const InstrumentoDetailContainer = () => {
-  const { cod_rec } = useParams();
+  const { modelo } = useParams();
 
   const [instrumentos, setInstrumentos] = useState([]);
   const [productosLoaded, setProductosLoaded] = useState(false);
@@ -29,9 +29,46 @@ const InstrumentoDetailContainer = () => {
     fetchAllInstrumentos();
   }, []);
 
-  // Filtro instrumetnos por cod_rec
-  let instrumento = instrumentos.filter((instrumento) => {
-    return instrumento.cod_rec === cod_rec;
+  //Agrupo instrumentos
+    const generateArrayCantidades = (data) => {
+    let products = [];
+
+    data.forEach((element) => {
+      let item = {
+        id: null,
+        tipo: element.tipo,
+        descripcion: element.descripcion,
+        marca: element.marca,
+        modelo: element.modelo,
+        filtro: element.filtro,
+        cod_manual: element.cod_manual,
+        especificaciones: element.especificaciones,
+        estado: element.estado,
+        ubicacion: element.ubicacion,
+        adicionales: element.adicionales,
+        cantidad: 1,
+      };
+      if (products.find((prod) => prod.modelo == item.modelo)) {
+        let producto = products.find((prod) => prod.modelo == item.modelo);
+        producto.cantidad += 1;
+      } else {
+        let itemId;
+        if (products.length === 0) {
+          item.id = 1;
+        } else {
+          itemId = products[products.length - 1].id + 1;
+          item.id = itemId;
+        }
+        products.push(item);
+      }
+    });
+    return products;
+  };
+  let instrumentosAgrupados = generateArrayCantidades(instrumentos);
+
+  // Filtro instrumetnos por modelo
+  let instrumento = instrumentosAgrupados.filter((instrumento) => {
+    return instrumento.modelo === modelo;
   });
 
   if (!productosLoaded) {
@@ -46,6 +83,10 @@ const InstrumentoDetailContainer = () => {
     );
   }
 
+
+
+
+
   return (
     <>
       <Container>
@@ -53,8 +94,7 @@ const InstrumentoDetailContainer = () => {
           {instrumento.map((producto) => {
             return (
               <InstrumentoDetail
-                key={producto.cod_rec}
-                cod_rec={producto.cod_rec}
+                key={producto.modelo}
                 tipo={producto.tipo}
                 descripcion={producto.descripcion}
                 marca={producto.marca}

@@ -46,7 +46,7 @@ function App() {
             />
             <Route
               exact
-              path="/instrumento/:cod_rec"
+              path="/instrumento/:modelo"
               element={<InstrumentoDetailContainer />}
             />
             <Route
