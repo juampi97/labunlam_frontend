@@ -19,7 +19,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.11.2",
     "require-context": "^1.1.0",
-    "xlsx": "https://cdn.sheetjs.com/xlsx-0.19.3/xlsx-0.19.3.tgz"
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
