@@ -13,6 +13,7 @@ import ProyectoresListContainer from "./components/ProyectoresListContainer";
 import NotebooksListContainer from "./components/NotebooksListContainer";
 import InstrumentosListContainer from "./components/InstrumentosListContainer";
 import InstrumentoDetailContainer from "./components/InstrumentoDetailContainer";
+import DescargasDetailContainer from "./components/DescargasDetailContainer";
 import Cart from "./components/Cart";
 
 // Import Context
@@ -48,6 +49,11 @@ function App() {
               exact
               path="/instrumento/:cod_rec"
               element={<InstrumentoDetailContainer />}
+            />
+            <Route
+              exact
+              path="/descargas"
+              element={<DescargasDetailContainer />}
             />
             <Route exact path="/carrito" element={<Cart />} />
           </Routes>
