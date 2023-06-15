@@ -22,7 +22,6 @@ import CartContext from "./context/CartContext";
 import "./App.css";
 
 function App() {
-
   return (
     <>
       <CartContext>
