@@ -55,7 +55,11 @@ a {
 }
 
 .item_card_instrumentos {
-  min-height: 240px;
+  min-height: 230px;
+}
+
+.item_card_instrumentos_caracteristicas_title{
+  font-size: 1.1rem;
 }
 
 .item_card_instrumentos_caracteristicas {

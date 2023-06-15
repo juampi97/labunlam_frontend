@@ -23,7 +23,7 @@ const Instrumentos = ({
     return (
       <>
         <>
-        <Col xs={10} md={5} lg={4} xl={3} className="m-2">
+        <Col xs={10} md={5} lg={5} xl={4} className="m-2">
           <Card>
             <div className="item_card_instrumentos">
               <Card.Body >
@@ -36,7 +36,7 @@ const Instrumentos = ({
                 </div>
                 <div className="d-flex justify-content-center mt-2">
                   <div className="mx-1">
-                    <Link to={`/producto/instrumento/${cod_rec}`}>
+                    <Link to={`/producto/instrumento/${modelo}`}>
                       <Button variant="secondary">Ver mas</Button>
                     </Link>
                   </div>
@@ -61,20 +61,20 @@ const Instrumentos = ({
   return (
     <>
       <>
-        <Col xs={10} md={5} lg={4} xl={3} className="m-2">
+        <Col xs={10} md={6} lg={5} xl={4} className="m-2">
           <Card>
             <div className="item_card_instrumentos">
               <Card.Body >
                 <Card.Title>{cod_rec}</Card.Title>
                 <div className="item_card_instrumentos_caracteristicas">
-                  <Card.Text>Tipo: {descripcion}</Card.Text>
+                  <Card.Text> <h5 className="item_card_instrumentos_caracteristicas_title">{descripcion}</h5></Card.Text>
                   <Card.Text>Marca: {marca}</Card.Text>
                   <Card.Text>Modelo: {modelo}</Card.Text>
                   {/* <Card.Text>Ancho de banda: {ab_rango}</Card.Text> */}
                 </div>
                 <div className="d-flex justify-content-center mt-2">
                   <div className="mx-1">
-                    <Link to={`/instrumento/${cod_rec}`}>
+                    <Link to={`/instrumento/${modelo}`}>
                       <Button variant="secondary">Ver mas</Button>
                     </Link>
                   </div>
